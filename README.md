@@ -109,3 +109,4 @@ Outras blades criadas foram:
 <h3>Web</h3>
 A ultima parte é a Web onde fica as rotas.<br>
 Cada rota foi configurada como get (pegar), post (publicar), delete (deletar) e patch (correção). Entre () foi colocado o nome da rota e seu caminho que irá prosseguir. Em alguns casos foi colocar o {id} para especificar um funcionário ou um investimento para visualização, edição ou exclusão. Depois foi colocado o caminho do controller onde será configurado cada rota e por fim um nome para diferenciamento de cada rota. 
+<hr>
