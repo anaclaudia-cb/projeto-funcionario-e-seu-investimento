@@ -1,6 +1,6 @@
 # projeto-funcionario-e-seu-investimento
 Projeto para listagem de funcionários de uma empresa e seus investimentos
-<h1>Manual de utilização.</h1>
+<h1>Manual de utilização</h1>
 
 A primeira página mostra a lista com todos os funcionários, separados por seu ID; nome e sobrenome; e e -mail.
 
@@ -53,3 +53,59 @@ Em cada investimento terá também dois botões:
 
 A tela de “adicionar investimento” onde o usuário terá que preencher o formulário com as informações: “nome do investimento” e “tipo do investimento”.
 Assim que completadas, deverá clicar no botão “enviar” para cadastrar o investimento.
+
+<h1>O código</h1>
+
+<h3>Controller</h3>
+As controllers muitas vezes tem um elementos parecidos, como index, create, store, edit, uptade e destroy. Cada controller cuida de uma parte do código. No projeto temos:
+<li><b>CriarFuncionario:</b> class criarFuncionário onde utiliza a model "Funcionario::create" para adicionar o nome (name) e o email (email);</li>
+<li><b>FuncionarioInvestimentoController:</b> Onde tem a index para a visualização de funcionário assim como o create para vincular o funcionário e seu investimento. Store para armazenar os dados da create. Edit para editar o valor do investimento. Uptade para visualizar o valor depois de editado e por fim o destroy para excluir o investimento vinculado ao funcionário.</li>
+<li><b>FuncionariosController</b>Assim como o "FuncionárioInvestimentosController" a controller de funcionários possui os mesmos elementos, mas a parte que será "controlada" é apenas a de funcionários, utilizando a model "funcionário"</li>
+  <li><b>InvestimentosController</b>Assim como o "FuncionárioInvestimentosController" a controller de investimentos possui os mesmos elementos, mas a parte que será "controlada" é apenas a de investimentos, utilizando a model "investimento"</li>
+
+<h3>Models</h3>
+As models são responsáveis por fazer o meio de campo entre o dado armazenado e as requisições do usuário.No projeto será utilizada apenas três models elas são: Funcionário, Investimento e por fim FuncionárioInvestimento. <i>Models sempre são no singular</i>
+
+<b>Funcionário</b>
+A model será configurada para pegar os dados "name" e "email" do banco de dados. Também irá dizer que "o retorno pertence a muitos investimentos e que terá uma tabela pivot chamada "valor" na tabela.
+
+<b>Investimento</b>
+A model será configurada para pegar os dados "nome" e "tipo" do banco de dados. Também irá dizer que "o retorno pertece a muitos funcionarios e que terá uma tabela pivot chamda "valor" na tabela.
+
+<b>FuncionarioInvestimento</b>
+A model será configurada para pegar os dados da tabela "funcionario_investimento" onde terá uma ligação entre as tabelas "funcionario" e "investimento". A model irá pegar apenas o "funcionario_id" o "investimento_id" e o "valor".
+
+<h3>Migrations</h3>
+A migration consiste em manter o versionamento da base de dados de uma aplicação e realizar sua manipulação através do código, possibilitando o compartilhamento de todo o seu histórico de alterações. No projeto iremos utilizar três migrations: funcionario, investimento e funcionario_investimento.
+
+A tabela funcionário (assim como na model configurada) irá armazenar os dados "name" e "email".<br>
+A tabela investimento (assim como na model configurada) irá armazenar os dados "nome" e "tipo".<br>
+Por fim a tabela funcionario_investimento irá fazer uma ligação entre as duas tabelas, o método utilizado foi o "Many To Many" ou seja "Muitos para Muitos".
+Para interligar as duas tabelas foi preciso apenas criar uma nova migration utilizando o _ para fazer a interligação das duas. Depois foi preciso configurar a migration para pegar os "id's" do funcionario e investimento, e por fim criar uma terceira tabela (dentro dessa migration) para conter o campo "valor".
+
+<h3>Views</h3>
+<h4>Layout</h4>
+Layout nada mais é que a primeira camada da blade. No projeto foi utilizado para que a "Nav" fique igual em todas as páginas do projeto. <br>
+Lá foi colocado os links para utilização do bootstrap. Em seguida ja foi especificado que o "cabeçalho" terá a nav e os botões do menu: "home, adicionar funcionário, investimentos e adicionar investimento". O botão foi colocado como "href" sendo dentro das aspas a rota espeficiando onde esse botão irá levar o usuário. Também foi colocado um style para que o botão fique na cor verde, utilizando seu código.
+
+<h4>Blade</h4>
+Todas as blades foram editadas para que cada uma mostre ao usuário uma página especifica.<br>
+A primeira página criada foi a "index" onde mostra os funcionários. Ao colocar @section('cabecalho') no inicio do código já importou o código no layout.<br>
+Em @section('conteudo') foi utilizado elementos do bootstrap como a lista, e os botões inseridos. Para puxar os dados registrados no banco de dados foi implementado um @foreach.<br>
+Cada botão foi codificado para que realizasse uma função diferente, cada um com uma rota especifica, como a de "alterar_funcionario" para edição e "createFuncionarioInvestimento" para vincular o funcionário ao investimento e adicionar o valor. Também foi colocado um botão para visualização do funcionário e por fim um botão de excluir o funcionário selecionado.
+
+
+Outras blades criadas foram:
+<li><b>Create.blade:</b>Criada com a intenção de adicionar um formulário para adicionar o funcionário;</li><br>
+<li><b>criarInvestimento.blade:</b>Formulário para adicionar o investimento;</li><br>
+<li><b>edit.blade:</b>Formulário para edição;</li><br>
+<li><b>editarValor.blade:</b>Formulário para editar valor;</li><br>
+<li><b>editInvestimentos.blade:</b>Formulário para edição de investimentos;</li><br>
+<li><b>index.blade:</b>Página para listar os funcionários;</li><br>
+<li><b>investimentos.blade:</b>Página para listar os investimentos;</li><br>
+<li><b>vincularFuncionarioInvestimento.blade:</b>Formulário para vincular o funcionário ao investimento e adicionar um valor;</li><br>
+<li><b>visualizarfuncionario.blade:</b>Página para visualizar um funcionário especifico.</li><br>
+
+<h3>Web</h3>
+A ultima parte é a Web onde fica as rotas.<br>
+Cada rota foi configurada como get (pegar), post (publicar), delete (deletar) e patch (correção). Entre () foi colocado o nome da rota e seu caminho que irá prosseguir. Em alguns casos foi colocar o {id} para especificar um funcionário ou um investimento para visualização, edição ou exclusão. Depois foi colocado o caminho do controller onde será configurado cada rota e por fim um nome para diferenciamento de cada rota. 
