@@ -1,5 +1,16 @@
 # projeto-funcionario-e-seu-investimento
 Projeto para listagem de funcionários de uma empresa e seus investimentos
+
+<h1>Pré-requisitos</h1>
+<li>PHP</li>
+<li>Composer</li>
+<li>MySQL</li>
+<li>Utilizado a versão 7.4 do PHP. Composer versão 2.1</li>
+
+<h1>Baixando o projeto e executando</h1>
+
+Para clonar um repositório já existente você deve usar o comando: <i>git clone <url></i>
+
 <h1>Manual de utilização</h1>
 
 A primeira página mostra a lista com todos os funcionários, separados por seu ID; nome e sobrenome; e e -mail.
