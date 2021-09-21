@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\Funcionario;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -28,7 +30,7 @@ Route::patch('/{id}/editar', 'App\Http\Controllers\FuncionariosController@update
 Route::get('/investimentos', 'App\Http\Controllers\InvestimentosController@index')->name('listar_investimentos');
 Route::get('/investimentos/criar', 'App\Http\Controllers\InvestimentosController@create');
 Route::post('/investimentos/criar', 'App\Http\Controllers\InvestimentosController@store');
-Route::delete('/investimentos/{id}/remover','App\Http\Controllers\InvestimentosController@destroy')->name('remover_investimentos');
+Route::delete('/investimentos/{id}/remover', 'App\Http\Controllers\InvestimentosController@destroy')->name('remover_investimentos');
 Route::get('/investimento/{id}/editar', 'App\Http\Controllers\InvestimentosController@edit')->name('alterar_investimento');
 Route::patch('/investimentos/{id}/', 'App\Http\Controllers\InvestimentosController@update')->name('update_investimento');
 
@@ -39,9 +41,25 @@ Route::post('/investimentos/{id}/adicionar/valor', 'App\Http\Controllers\ValorCo
 Route::get('/{id}/visualizar', 'App\Http\Controllers\FuncionarioInvestimentoController@index')->name('visualizar_funcionario_investimentos');
 Route::get('/{id}/vincular', 'App\Http\Controllers\FuncionarioInvestimentoController@create')->name('createFuncionarioInvestimento');
 Route::post('/{id}/vincular', 'App\Http\Controllers\FuncionarioInvestimentoController@store')->name('storeFuncionarioInvestimento');
-Route::delete('/funcionario/{id}/investimento/{investimento_id}','App\Http\Controllers\FuncionarioInvestimentoController@destroy')->name('remover_funcionario_investimento');
+Route::delete('/funcionario/{id}/investimento/{investimento_id}', 'App\Http\Controllers\FuncionarioInvestimentoController@destroy')->name('remover_funcionario_investimento');
 Route::get('/funcionario/{id}/investimento/{investimento_id}/editar', 'App\Http\Controllers\FuncionarioInvestimentoController@edit')->name('alterar_valor');
 Route::patch('/funcionario/{id}/investimento/{investimento_id}/', 'App\Http\Controllers\FuncionarioInvestimentoController@update')->name('update_valor');
+
+/** API */
+
+Route::get('/api', function () {
+    $response = Http::get('https://reqres.in/api/users?page=1');
+
+    // dd($response->json()["data"]);
+    $data = $response->json()["data"];
+    foreach ($data as $user) {
+
+        Funcionario::updateOrcreate([
+            "name" => $user['first_name'] . " " . $user['last_name'],
+            "email" => $user['email'],
+        ]);
+    }
+});
 
 
 

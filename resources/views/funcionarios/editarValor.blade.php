@@ -14,6 +14,7 @@
 @endif
 
 <body>
+    <li class="list-group-item justify-content-between align-items-center">
 <form method="POST" action="{{ route('update_valor', [$funcionario->id, $investimento->id]) }}">
     @csrf
 @method('PATCH')
@@ -28,5 +29,6 @@
         </div>
     </div>
 </form>
+    </li>
 </body>
 @endsection
