@@ -21,6 +21,17 @@ depois irá para a pasta do projeto utilizando o comando:
 cd projeto-funcionario-e-seu-investimento
 ```
 
+depois instalará o composer na pasta
+
+```
+composer install
+```
+
+caso haja algum erro utilze o comando
+```
+composer update
+```
+
 rodará o comando
 
 ```
