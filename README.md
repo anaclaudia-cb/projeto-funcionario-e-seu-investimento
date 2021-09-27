@@ -9,7 +9,25 @@ Projeto para listagem de funcionários de uma empresa e seus investimentos
 
 <h1>Baixando o projeto e executando</h1>
 
-Para clonar um repositório já existente você deve usar o comando: <i>git clone url-do-arquivo</i>
+Para clonar um repositório já existente você deve usar o comando: 
+
+```
+git clone https://github.com/anaclaudia-cb/projeto-funcionario-e-seu-investimento.git
+```
+
+depois irá para a pasta do projeto utilizando o comando:
+
+```
+cd projeto-funcionario-e-seu-investimento
+```
+
+rodará o comando
+
+```
+php artisan serve
+```
+
+irá para a paǵina do google e colocará localhost:8000/home
 
 <h1>Manual de utilização</h1>
 
